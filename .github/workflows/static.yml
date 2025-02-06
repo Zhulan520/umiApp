@@ -47,7 +47,7 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2 # 更新到 v2 版本
+        uses: actions/upload-pages-artifact@v3 # 更新到 v2 版本
         with:
           path: './dist/build/h5' # 确保路径正确
 

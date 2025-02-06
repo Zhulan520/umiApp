@@ -103,7 +103,58 @@ const Login: React.FC = () => {
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
+    // const userInfo = await initialState?.fetchUserInfo?.();
+    const userInfo = {
+      name: 'Serati Ma',
+      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+      userid: '00000001',
+      email: 'antdesign@alipay.com',
+      signature: '海纳百川，有容乃大',
+      title: '交互专家',
+      group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+      tags: [
+        {
+          key: '0',
+          label: '很有想法的',
+        },
+        {
+          key: '1',
+          label: '专注设计',
+        },
+        {
+          key: '2',
+          label: '辣~',
+        },
+        {
+          key: '3',
+          label: '大长腿',
+        },
+        {
+          key: '4',
+          label: '川妹子',
+        },
+        {
+          key: '5',
+          label: '海纳百川',
+        },
+      ],
+      notifyCount: 12,
+      unreadCount: 11,
+      country: 'China',
+      geographic: {
+        province: {
+          label: '浙江省',
+          key: '330000',
+        },
+        city: {
+          label: '杭州市',
+          key: '330100',
+        },
+      },
+      address: '西湖区工专路 77 号',
+      phone: '0752-268888888',
+    };
+    console.log(userInfo, 'userInfo');
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -118,17 +169,19 @@ const Login: React.FC = () => {
     try {
       // 登录
       // const msg = await login({ ...values, type });
-      const msg = { status: 'ok' };
+      // console.log(msg, 'msg');
+      const msg = { currentAuthority: 'admin', status: 'ok', type: 'account' };
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
         });
         message.success(defaultLoginSuccessMessage);
-        // await fetchUserInfo();
-        // const urlParams = new URL(window.location.href).searchParams;
-        history.push('/welcome');
-        return;
+        await fetchUserInfo();
+        const urlParams = new URL(window.location.href).searchParams;
+        console.log(urlParams, 'urlParams');
+        history.push(urlParams.get('redirect') || '/');
+        // return;
       }
       console.log(msg);
       // 如果失败去设置用户错误信息
